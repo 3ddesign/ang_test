@@ -1,34 +1,22 @@
-// import $ from 'jquery';
-// import * as newJq from 'jquery';
-//
-// import {
-//     TEST_NAME
-// } from './a';
-// import User from './b';
-// import * as b from './b';
-// newJq.ajax();
-// console.log(TEST_NAME);
-// var user = new User();
+function ListCtrl($scope) {
+    $scope.items = [
+      { text: 'Chocolate', done: true },
+      { text: 'Potato', done: false },
+      { text: 'Banana', done: false },
+      { text: 'Water', done: true }
+    ];
 
-var apiCall = new Promise(function(resolve, reject) {
-    $.ajax({
-        url: 'http://ip.jsontest.com/',
-        type: 'GET',
-        crossDomain: true,
-        success: function(data) {
-            resolve(data.ip);
-        },
-        error: function() {
-            reject();
-        }
-    });
-});
+    $scope.addItem = function () {
 
+        $scope.items.push({ text: $scope.itemText, done: false });
+          $scope.itemText = '';
+    };
 
-apiCall
-    .then(function(ip) {
-        console.log(`IP: ${ip}`);
-    })
-    .catch(function() {
-        console.warn('Api call failed!');
-    });
+  $scope.remain = function () {
+        var count = 0;
+            angular.forEach($scope.items, function(item) {
+            count += item.done;
+        });
+        return count;
+    };
+}
